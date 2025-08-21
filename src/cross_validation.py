@@ -21,6 +21,7 @@ class CrossValidation:
         problem_type="binary_classification",
         multilabel_delimiter=",",
         random_state=42,
+        num_folds=5,
     ):
         self.dataframe = df
         self.target_cols = target_cols
@@ -35,7 +36,7 @@ class CrossValidation:
             self.dataframe = self.dataframe.sample(frac=1).reset_index(drop=True)
 
     def split(self):
-        if self.problem_type == ["binary_classification", "multiclass_classification"]:
+        if self.problem_type in ["binary_classification", "multiclass_classification"]:
             if self.num_targets != 1:
                 raise Exception("Invalid number of targets for this problem type")
             target = self.target_cols[0]
